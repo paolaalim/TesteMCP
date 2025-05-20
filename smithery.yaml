@@ -18,7 +18,6 @@ startCommand:
         minimum: 0
         maximum: 1
 
-
 build:
-  dockerfile: string
+  Dockerfile: string
   dockerBuildPath: string
