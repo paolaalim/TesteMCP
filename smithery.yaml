@@ -1,28 +1,13 @@
-startCommand:
-  type: http
-  configSchema: object
-
-startCommand:
-  type: http
-  configSchema:
-    type: object
-    required: ["apiKey"]
-    properties:
-      apiKey:
-        type: string
-        title: "API Key"
-        description: "Your API key"
-      temperature:
-        type: number
-        default: 0.7
-        minimum: 0
-        maximum: 1
+# Smithery configuration file: https://smithery.ai/docs/build/project-config
 
 startCommand:
   type: stdio
-  configSchema: object
-  commandFunction: string
-
-build:
-  dockerfile: string
-  dockerBuildPath: string
+  commandFunction:
+    # A JS function that produces the CLI command based on the given config to start the MCP on stdio.
+    |-
+    (config) => ({ command: 'python', args: ['myservermcp.py'], env: {} })
+  configSchema:
+    # JSON Schema defining the configuration options for the MCP.
+    type: object
+    properties: {}
+  exampleConfig: {}
