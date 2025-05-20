@@ -83,4 +83,4 @@ def teste() -> str:
 
 # --- Execução do servidor ---
 if __name__ == "__main__":
-    mcp.run(transport="http", port=6277)
+    mcp.run(transport="stdio")
