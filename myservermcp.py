@@ -9,32 +9,32 @@ from mcp.server.fastmcp import FastMCP, Context
 mcp = FastMCP("MeuServidorMCP")
 print(f"Servidor MCP '{mcp.name}' inicializado.")
 
-# --- RESOURCES (InformaÃ§Ãµes de Contexto para a IA) ---
+# --- RESOURCES (Informações de Contexto para a IA) ---
 
-@mcp.resource("meuMCP://about") # URI estÃ¡tica que o cliente pode solicitar
+@mcp.resource("meuMCP://about") # URI estática que o cliente pode solicitar
 def get_assistant_capabilities() -> str:
-    """Descreve as principais ferramentas e o propÃ³sito deste assistente."""
+    """Descreve as principais ferramentas e o propósito deste assistente."""
     print("-> Resource 'meuMCP://about' solicitado pelo cliente.")
     capabilities = """
     Eu sou um assistente de exemplo baseado no servidor 'MeuServidorMCP'. Minhas principais capacidades (ferramentas que posso usar) sÃ£o:
-    1.  **Contar FrequÃªncia de Palavras:** Analisar um texto e contar quantas vezes cada palavra aparece.
+    1.  **Contar Frequência de Palavras:** Analisar um texto e contar quantas vezes cada palavra aparece.
     2.  **Extrair URLs:** Encontrar links (http/https) dentro de um texto.
-    3.  **Recomendar Site:** Posso te indicar um Ã³timo site para aprender sobre IA.
-    4.  **Registrar Logs:** Posso registrar mensagens internamente (Ãºtil para depuraÃ§Ã£o).
+    3.  **Recomendar Site:** Posso te indicar um útimo site para aprender sobre IA.
+    4.  **Registrar Logs:** Posso registrar mensagens internamente (útil para depuração).
 
-    Use-me para processar textos ou obter a recomendaÃ§Ã£o do site!
+    Use-me para processar textos ou obter a recomendação do site!
     """
-    print("   [meuMCP://about] DescriÃ§Ã£o das capacidades retornada.")
+    print("   [meuMCP://about] Descrição das capacidades retornada.")
     return capabilities.strip()
 
-# --- FERRAMENTAS (Tools - AÃ§Ãµes que a IA pode chamar) ---
+# --- FERRAMENTAS (Tools - a IA pode chamar) ---
 
 @mcp.tool()
 def contar_frequencia_palavras(texto: str) -> str:
     """Conta a frequÃªncia de cada palavra em um texto fornecido."""
     
     print(f"-> Ferramenta 'contar_frequencia_palavras' chamada com texto: '{texto[:50]}...'")
-    if not texto: return "Nenhum texto fornecido para anÃ¡lise."
+    if not texto: return "Nenhum texto fornecido para análise."
     try:
         # Usa regex para encontrar palavras e Counter para contar
         palavras = re.findall(r'\b\w+\b', texto.lower())
@@ -42,7 +42,7 @@ def contar_frequencia_palavras(texto: str) -> str:
         contagem = Counter(palavras)
         # Formata a saÃ­da como string
         resultado_str = ", ".join([f"{palavra}: {freq}" for palavra, freq in contagem.most_common()])
-        resultado = f"FrequÃªncia de palavras: {resultado_str}"
+        resultado = f"Frequência de palavras: {resultado_str}"
         print(f"   Resultado: {resultado}")
         return resultado
     except Exception as e:
@@ -75,7 +75,7 @@ def registrar_log_interno(mensagem: str, ctx: Context) -> str:
     print(f"   Resultado: {resultado}")
     return resultado
 
-# --- PROMPTS (Modelos de Conversa Iniciados pelo UsuÃ¡rio) ---
+# --- PROMPTS (Modelos de Conversa Iniciados pelo Usuário) ---
 @mcp.prompt()
 def debug_error(error: str) -> list[base.Message]:
     """Inicia uma conversa para ajudar a depurar um erro."""
@@ -86,7 +86,7 @@ def debug_error(error: str) -> list[base.Message]:
         base.AssistantMessage("Entendido. Posso tentar ajudar a depurar. O que vocÃª jÃ¡ tentou fazer para resolver?"),
     ]
 
-# Defina o bloco principal de execuÃ§Ã£o
+# Defina o bloco principal de execução
 if __name__ == "__main__":
     mcp.run()
 
