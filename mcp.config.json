@@ -1,5 +1,5 @@
 {
-    "command": ".venv/bin/python",
+    "command": ".venv\\Scripts\\python.exe",
     "args": "servidor.py",
     "env": {
         "PYTHONPATH": "."
