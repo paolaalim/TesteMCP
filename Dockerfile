@@ -17,7 +17,7 @@ COPY . .
 # RUN algum_comando_de_build (como um script de preparação, se necessário)
 
 # A porta exposta depende do que seu servidor usa (ex: 6274 ou 8000)
-EXPOSE 8000
+EXPOSE 6277
 
 # O comando final será sobrescrito via smithery.yaml
 CMD ["python", "servidor.py"]
