@@ -31,7 +31,7 @@ def get_assistant_capabilities() -> str:
 
 @mcp.tool()
 def contar_frequencia_palavras(texto: str) -> str:
-    """Conta a frequÃªncia de cada palavra em um texto fornecido."""
+    """Conta a frequência de cada palavra em um texto fornecido."""
     
     print(f"-> Ferramenta 'contar_frequencia_palavras' chamada com texto: '{texto[:50]}...'")
     if not texto: return "Nenhum texto fornecido para análise."
