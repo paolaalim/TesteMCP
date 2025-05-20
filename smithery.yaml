@@ -18,12 +18,6 @@ startCommand:
         minimum: 0
         maximum: 1
 
-startCommand:
-  type: stdio
-  configSchema: object
-  commandFunction: string
-
-
 build:
   Dockerfile: string
   dockerBuildPath: string
