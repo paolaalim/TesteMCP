@@ -5,6 +5,8 @@ COPY . .
 
 RUN pip install -r requirements.txt
 
-EXPOSE 6277  # Apenas documentação — não ativa o uso de rede se for stdio
+# Expondo a porta 6277 (apenas documentação; não usada em stdio)
+EXPOSE 6277
 
 CMD ["python", "servidor.py"]
+
