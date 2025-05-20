@@ -1,12 +1,28 @@
-version: 1
-start:
-  command: ["python", "servidor.py"]
-  port: 8000
+startCommand:
+  type: http
+  configSchema: object
 
-configSchema:
-  type: object
-  properties:
-    modelo:
-      type: string
-      default: "claude-3"
-      enum: ["claude-3", "gpt-4"]
+startCommand:
+  type: http
+  configSchema:
+    type: object
+    required: ["apiKey"]
+    properties:
+      apiKey:
+        type: string
+        title: "API Key"
+        description: "Your API key"
+      temperature:
+        type: number
+        default: 0.7
+        minimum: 0
+        maximum: 1
+
+startCommand:
+  type: stdio
+  configSchema: object
+  commandFunction: string
+
+build:
+  dockerfile: string
+  dockerBuildPath: string]
