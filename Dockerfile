@@ -20,7 +20,7 @@ COPY . .
 EXPOSE 6274
 
 # O comando final será sobrescrito via smithery.yaml
-CMD ["python", "myservermcp.py"]
+CMD ["python", "servidor.py"]
 
 
 
