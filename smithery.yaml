@@ -1,7 +1,7 @@
 version: 1
 start:
   command: ["python", "servidor.py"]
-  port: 8000
+  port: 6277
 
 configSchema:
   type: object
