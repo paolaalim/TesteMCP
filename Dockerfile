@@ -1,12 +1,26 @@
-FROM python:3.13.1-slim
+# Usa imagem leve do Python
+FROM python:3.11-alpine
 
+# Define o diretório de trabalho
 WORKDIR /app
+
+# Copia os arquivos de dependência (caso tenha)
+COPY requirements.txt ./
+
+# Instala as dependências
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copia o restante do código
 COPY . .
 
-RUN pip install -r requirements.txt
+# A build pode ser omitida se não houver transpilação. Se houver algum passo, adicione aqui
+# RUN algum_comando_de_build (como um script de preparação, se necessário)
 
-# Expondo a porta 6277 (apenas documentação; não usada em stdio)
-EXPOSE 6277
+# A porta exposta depende do que seu servidor usa (ex: 6274 ou 8000)
+EXPOSE 6274
 
-CMD ["python", "servidor.py"]
+# O comando final será sobrescrito via smithery.yaml
+CMD ["python", "myservermcp.py"]
+
+
 
