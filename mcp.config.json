@@ -1,0 +1,8 @@
+{
+    "command": ".venv/bin/python",
+    "args": "myservermcp.py",
+    "env": {
+        "PYTHONPATH": "."
+    }
+  }
+  

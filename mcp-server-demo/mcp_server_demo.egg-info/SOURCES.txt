@@ -1,0 +1,8 @@
+README.md
+main.py
+pyproject.toml
+mcp_server_demo.egg-info/PKG-INFO
+mcp_server_demo.egg-info/SOURCES.txt
+mcp_server_demo.egg-info/dependency_links.txt
+mcp_server_demo.egg-info/requires.txt
+mcp_server_demo.egg-info/top_level.txt
