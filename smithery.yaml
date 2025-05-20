@@ -1,0 +1,6 @@
+name: TesteServidorMCP
+version: 0.1.0
+description: Ferramentas que contam palavras, extraem URLs e registram logs.
+entry: servidor.py
+transport: stdio
+language: python
