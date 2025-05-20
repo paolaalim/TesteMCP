@@ -27,6 +27,11 @@ def get_assistant_capabilities() -> str:
 
 
 
+
+def minha_tool(ctx: Context):
+    modelo = ctx.config.get("modelo", "claude-3")
+
+
 # --- TOOLS (Ferramentas que a IA pode usar) ---
 
 @mcp.tool()

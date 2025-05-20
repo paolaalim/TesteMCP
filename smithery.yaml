@@ -1,6 +1,12 @@
-name: TesteServidorMCP
-version: 0.1.0
-description: Ferramentas que contam palavras, extraem URLs e registram logs.
-entry: servidor.py
-transport: stdio
-language: python
+version: 1
+start:
+  command: ["python", "servidor.py"]
+  port: 8000
+
+configSchema:
+  type: object
+  properties:
+    modelo:
+      type: string
+      default: "claude-3"
+      enum: ["claude-3", "gpt-4"]
