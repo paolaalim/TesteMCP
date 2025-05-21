@@ -1,4 +1,0 @@
-mcp[cli]
-httpx
-fastmcp
-requests
