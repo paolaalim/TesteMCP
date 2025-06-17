@@ -1,3 +1,5 @@
+[![MseeP.ai Security Assessment Badge](https://mseep.net/pr/paolaalim-testemcp-badge.png)](https://mseep.ai/app/paolaalim-testemcp)
+
 [![smithery badge](https://smithery.ai/badge/@paolaalim/testemcp)](https://smithery.ai/server/@paolaalim/testemcp)
 
 
