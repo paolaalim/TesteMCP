@@ -1,0 +1,21 @@
+[build-system]
+requires = ["uv_build>=0.8.15,<0.9.0"]
+build-backend = "uv_build"
+
+[project]
+name = "meu-servidor-mcp"
+version = "0.1.0"
+description = "Um servidor MCP de exemplo para o Smithery."
+requires-python = ">=3.12"
+dependencies = [
+    "mcp==1.9.0",
+    "uvicorn==0.34.2",
+    "pydantic==2.11.4",
+    "anyio==4.9.0",
+    # A biblioteca do Smithery é necessária para o decorator
+    "smithery>=0.1.23" 
+]
+
+# Aponta para a função que cria nosso servidor
+[tool.smithery]
+server = "servidor:create_server"
