@@ -4,43 +4,40 @@ build-backend = "uv_build"
 
 [project]
 name = "meu-servidor-mcp"
-version = "0.2.0" # Aumentei a versão para refletir a mudança
+version = "0.3.0" # Nova versão para a nova tentativa
 description = "Um servidor MCP de exemplo para o Smithery."
 requires-python = ">=3.12"
 dependencies = [
-    # Lista completa de dependências do seu requirements.txt original
     "annotated-types==0.7.0",
     "anyio==4.9.0",
-    "certifi==2025.4.26",
-    "click==8.1.8",
+    "certifi", # Versão liberada
+    "click", # Versão liberada
     "exceptiongroup==1.3.0",
     "h11==0.16.0",
     "httpcore==1.0.9",
     "httpx==0.28.1",
     "httpx-sse==0.4.0",
-    "idna==3.10",
+    "idna", # Versão liberada
     "markdown-it-py==3.0.0",
     "mcp==1.9.0",
     "mdurl==0.1.2",
     "pydantic==2.11.4",
     "pydantic-settings==2.9.1",
     "pydantic_core==2.33.2",
-    "Pygments==2.19.1",
+    "Pygments", # Versão liberada
     "python-dotenv==1.1.0",
     "python-multipart==0.0.20",
-    "rich==14.0.0",
-    "shellingham==1.5.4",
+    "rich", # Versão liberada para ser compatível com o novo typer
+    "shellingham", # Versão liberada para ser compatível com o novo typer
     "sniffio==1.3.1",
     "sse-starlette==2.3.5",
     "starlette==0.46.2",
-    "typer==0.15.4",
+    "typer", # << AQUI ESTÁ A MUDANÇA PRINCIPAL! Versão liberada!
     "typing-inspection==0.4.0",
     "typing_extensions==4.13.2",
     "uvicorn==0.34.2",
-    # E a biblioteca do Smithery que adicionamos
     "smithery>=0.1.23"
 ]
 
-# Esta parte continua a mesma
 [tool.smithery]
 server = "servidor:create_server"
