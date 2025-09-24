@@ -16,5 +16,5 @@ COPY . .
 # Exponha a porta que o servidor usará
 EXPOSE 8080
 
-# Comando para iniciar o servidor, agora apontando para o 'servidor.py'
-CMD ["uvicorn", "servidor:mcp.streamable_http_app", "--host", "0.0.0.0", "--port", "8080"]
+# Comando para iniciar o servidor Python diretamente
+CMD ["python", "servidor.py"]

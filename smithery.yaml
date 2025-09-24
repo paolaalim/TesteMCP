@@ -1,38 +1,18 @@
-startCommand:
-  type: http
-  configSchema: object
-
-startCommand:
-  type: http
-  configSchema:
-    type: object
-    required: ["apiKey"]
-    properties:
-      apiKey:
-        type: string
-        title: "Minha chave API"
-        description: "ede9e5f6-fb6a-41d1-99b0-51e263d93fae"
-      temperature:
-        type: number
-        default: 0.7
-        minimum: 0
-        maximum: 1
-
-startCommand:
-  type: stdio
-  configSchema: object
-  commandFunction: string
+name: meu-servidor-mcp
+description: "Servidor MCP de demonstração com análise de texto"
+version: "1.0.0"
 
 build:
-  dockerfile: string
-  dockerBuildPath: string
+  dockerfile: "Dockerfile"
+  dockerBuildPath: "."
 
-providers:
-  - id: claude 
-    provider: anthropic
-    apiKey: ${ANTHROPIC_API_KEY}
-
-routes:
-  - id: meu-servidor-mcp
-    entry: mcp://localhost:6274  
-    model: claude-3-sonnet-20240229  
+startCommand:
+  type: http
+  url: "http://localhost:8080"
+  configSchema:
+    type: object
+    properties:
+      port:
+        type: number
+        default: 8080
+        description: "Porta do servidor HTTP"  
