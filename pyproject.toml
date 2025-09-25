@@ -4,10 +4,11 @@ build-backend = "uv_build"
 
 [project]
 name = "meu-servidor-mcp"
-version = "0.4.0" # Nova versão para a tentativa final
+version = "1.0.0"
 description = "Um servidor MCP de exemplo para o Smithery."
 requires-python = ">=3.12"
 dependencies = [
+    # Dependências do seu projeto, com versões liberadas para evitar conflitos
     "annotated-types",
     "anyio",
     "certifi",
@@ -19,8 +20,7 @@ dependencies = [
     "httpx-sse",
     "idna",
     "markdown-it-py",
-    # A MUDANÇA ESTÁ AQUI:
-    "mcp",  # Versão liberada para o instalador escolher a correta
+    "mcp", # Versão liberada para resolver o conflito que vimos nos logs
     "mdurl",
     "pydantic",
     "pydantic-settings",
@@ -33,12 +33,18 @@ dependencies = [
     "sniffio",
     "sse-starlette",
     "starlette",
-    "typer",
+    "typer", # Versão liberada para resolver o conflito que vimos nos logs
     "typing-inspection",
     "typing_extensions",
     "uvicorn",
-    "smithery>=0.1.23"
+    "smithery>=0.1.23" # Necessário para o decorator @smithery.server()
 ]
 
+# Secção que permite os comandos de teste local `uv run dev` e `uv run playground`
+[project.scripts]
+dev = "smithery.cli.dev:main"
+playground = "smithery.cli.playground:main"
+
+# Secção CRÍTICA que aponta para o nosso servidor
 [tool.smithery]
 server = "servidor:create_server"
