@@ -1,74 +1,66 @@
-# servidor.py (VERSÃO AJUSTADA PARA SMITHERY)
-
 # --- Imports ---
 import re
 from collections import Counter
-from mcp.server.fastmcp.prompts import base
-from mcp.server.fastmcp import FastMCP, Context
 import asyncio
-from smithery.decorators import smithery # Importar o decorator
-from pydantic import BaseModel # Para o schema de configuração
+from mcp.server.fastmcp import FastMCP, Context
+from mcp.server.fastmcp.prompts import base
+from smithery.decorators import smithery # Importar o decorator obrigatório
 
-# O Smithery recomenda esta estrutura
+# O decorator @smithery.server() marca esta função como o ponto de entrada
 @smithery.server()
 def create_server():
-    """Cria e retorna a instância do servidor FastMCP."""
-    
-    # 1. Inicialize o Servidor
-    # O código que estava no escopo global agora fica dentro desta função
+    """
+    Cria, configura e retorna a instância do servidor FastMCP.
+    É esta função que o Smithery vai chamar para iniciar o servidor.
+    """
+    # 1. Inicialize o Servidor dentro da função
     mcp = FastMCP("MeuServidorMCP", stateless_http=True)
-    print(f"Servidor MCP '{mcp.name}' inicializado.")
+    print(f"Servidor MCP '{mcp.name}' está a ser criado.")
 
     # --- RESOURCES ---
     @mcp.resource("meuMCP://about")
     def get_assistant_capabilities() -> str:
         """Descreve as principais ferramentas e o propósito deste assistente."""
-        print("-> Resource 'meuMCP://about' solicitado pelo cliente.")
         return """
-        Eu sou um assistente de exemplo baseado no servidor 'MeuServidorMCP'. Minhas principais capacidades são:
-        1.  **Contar Frequência de Palavras:** Analisar um texto e contar quantas vezes cada palavra aparece.
-        2.  **Extrair URLs:** Encontrar links (http/https) dentro de um texto.
-        3.  **Registrar Logs:** Posso registrar mensagens internamente.
+        Eu sou um assistente de exemplo. As minhas ferramentas são:
+        1. Contar Frequência de Palavras
+        2. Extrair URLs
+        3. Registrar Logs
         """.strip()
 
     # --- FERRAMENTAS (Tools) ---
     @mcp.tool()
     def contar_frequencia_palavras(texto: str) -> str:
-        """Conta a frequência de cada palavra em um texto fornecido."""
-        print(f"-> Ferramenta 'contar_frequencia_palavras' chamada...")
-        if not texto: return "Nenhum texto fornecido para análise."
+        """Conta a frequência de cada palavra num texto fornecido."""
         palavras = re.findall(r'\b\w+\b', texto.lower())
-        if not palavras: return "Nenhuma palavra encontrada no texto."
+        if not palavras:
+            return "Nenhuma palavra encontrada."
         contagem = Counter(palavras)
-        resultado_str = ", ".join([f"{palavra}: {freq}" for palavra, freq in contagem.most_common()])
-        return f"Frequência de palavras: {resultado_str}"
+        return ", ".join([f"{p}: {f}" for p, f in contagem.most_common()])
 
     @mcp.tool()
     def extrair_urls_texto(texto: str) -> str:
         """Encontra e lista todas as URLs (http ou https) dentro de um texto."""
-        print(f"-> Ferramenta 'extrair_urls_texto' chamada...")
-        urls_encontradas = re.findall(r'http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\\(\\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+', texto)
-        if urls_encontradas:
-            return f"URLs encontradas ({len(urls_encontradas)}): " + ", ".join(urls_encontradas)
-        else:
-            return "Nenhuma URL encontrada no texto."
+        urls = re.findall(r'http[s]?://\S+', texto)
+        if not urls:
+            return "Nenhuma URL encontrada."
+        return f"URLs encontradas ({len(urls)}): " + ", ".join(urls)
 
     @mcp.tool()
     async def registrar_log_interno(mensagem: str, ctx: Context) -> str:
-        """Registra uma mensagem nos logs internos do servidor MCP."""
-        print(f"-> Ferramenta 'registrar_log_interno' chamada...")
-        await ctx.info(f"Log via ferramenta: {mensagem}")
-        return f"Mensagem '{mensagem}' registrada nos logs."
+        """Registra uma mensagem nos logs internos do servidor."""
+        await ctx.info(f"Log da ferramenta: {mensagem}")
+        return f"Mensagem '{mensagem}' registrada."
 
     # --- PROMPTS ---
     @mcp.prompt()
     def debug_error(error: str) -> list[base.Message]:
         """Inicia uma conversa para ajudar a depurar um erro."""
-        print(f"-> Prompt 'debug_error' iniciado com erro: {error}")
         return [
-            base.UserMessage(f"Estou recebendo este erro:\n```\n{error}\n```"),
-            base.AssistantMessage("Entendido. O que você já tentou fazer para resolver?"),
+            base.UserMessage(f"Estou com este erro: {error}"),
+            base.AssistantMessage("Entendido. O que já tentou fazer para resolver?"),
         ]
 
-    # A função deve retornar a instância do servidor
+    # 3. A função deve retornar a instância do servidor criada
+    print("Criação do servidor MCP concluída.")
     return mcp
