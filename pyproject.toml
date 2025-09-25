@@ -3,48 +3,48 @@ requires = ["uv_build>=0.8.15,<0.9.0"]
 build-backend = "uv_build"
 
 [project]
-name = "meu-servidor-mcp"
-version = "1.0.0"
+# O nome do projeto agora corresponde ao novo nome da pasta
+name = "server"
+version = "1.1.0"
 description = "Um servidor MCP de exemplo para o Smithery."
 requires-python = ">=3.12"
+# Dependências exatas do seu ficheiro uv.lock para garantir o sucesso
 dependencies = [
-    # Dependências do seu projeto, com versões liberadas para evitar conflitos
-    "annotated-types",
-    "anyio",
-    "certifi",
-    "click",
-    "exceptiongroup",
-    "h11",
-    "httpcore",
-    "httpx",
-    "httpx-sse",
-    "idna",
-    "markdown-it-py",
-    "mcp", # Versão liberada para resolver o conflito que vimos nos logs
-    "mdurl",
-    "pydantic",
-    "pydantic-settings",
-    "pydantic_core",
-    "Pygments",
-    "python-dotenv",
-    "python-multipart",
-    "rich",
-    "shellingham",
-    "sniffio",
-    "sse-starlette",
-    "starlette",
-    "typer", # Versão liberada para resolver o conflito que vimos nos logs
-    "typing-inspection",
-    "typing_extensions",
-    "uvicorn",
-    "smithery>=0.1.23" # Necessário para o decorator @smithery.server()
+    "annotated-types==0.7.0",
+    "anyio==4.9.0",
+    "certifi==2025.4.26",
+    "click==8.1.8",
+    "exceptiongroup==1.3.0",
+    "h11==0.16.0",
+    "httpcore==1.0.9",
+    "httpx==0.28.1",
+    "httpx-sse==0.4.0",
+    "idna==3.10",
+    "markdown-it-py==3.0.0",
+    "mcp>=1.13.1", # Versão mínima para compatibilidade com smithery
+    "mdurl==0.1.2",
+    "pydantic==2.11.4",
+    "pydantic-settings==2.9.1",
+    "pydantic_core==2.33.2",
+    "Pygments==2.19.1",
+    "python-dotenv==1.1.0",
+    "python-multipart==0.0.20",
+    "rich==14.0.0",
+    "shellingham==1.5.4",
+    "sniffio==1.3.1",
+    "sse-starlette==2.3.5",
+    "starlette==0.46.2",
+    "typer>=0.17.3", # Versão mínima para compatibilidade com smithery
+    "typing-inspection==0.4.0",
+    "typing_extensions==4.13.2",
+    "uvicorn==0.34.2",
+    "smithery>=0.1.23"
 ]
 
-# Secção que permite os comandos de teste local `uv run dev` e `uv run playground`
 [project.scripts]
 dev = "smithery.cli.dev:main"
 playground = "smithery.cli.playground:main"
 
-# Secção CRÍTICA que aponta para o nosso servidor
 [tool.smithery]
-server = "servidor:create_server"
+# O caminho para o servidor agora reflete a nova estrutura
+server = "server.servidor:create_server"
